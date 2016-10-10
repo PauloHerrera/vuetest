@@ -1,0 +1,62 @@
+<html>
+  <head></head>
+  <body class="page-horizontal-bar">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <div id="main">
+      <br/><br/>
+      <h4>Edit it:</h4>
+      <input type="text" v-model="text_content" />
+
+
+      <h1>{{text_content}}</h1>
+    	<!-- The navigation menu will get the value of the "active" variable as a class. -->
+    	<!-- To stops the page from jumping when a link is clicked we use the "prevent" modifier (short for preventDefault). -->
+
+    	<nav v-bind:class="active" v-on:click.prevent>
+    		<!-- When a link in the menu is clicked, we call the makeActive method, defined in the JavaScript Vue instance. -->
+
+    		<a href="#" class="home" v-on:click="makeActive('home')">Home</a>
+    		<a href="#" class="projects" v-on:click="makeActive('projects')">Projects</a>
+    		<a href="#" class="services" v-on:click="makeActive('services')">Services</a>
+    		<a href="#" class="contact" v-on:click="makeActive('contact')">Contact</a>
+    	</nav>
+
+     	<!-- The mustache expression will be replaced with the value of "active".
+     		 It will automatically update to reflect any changes. -->
+
+    	<p>You chose <b>{{active}}</b></p>
+
+      <form v-cloak>
+
+      	<h1>Services</h1>
+
+      	<ul>
+
+      		<!-- Loop through the services array, assign a click handler, and set or
+      			 remove the "active" css class if needed -->
+
+      		<li v-for="service in services" v-on:click="toggleActive(service)" v-bind:class="{ 'active': service.active}">
+
+      			<!-- Display the name and price for every entry in the array .
+                       Vue.js has a built in currency filter for formatting the price -->
+
+      			{{service.name}} <span>{{service.price | currency}}</span>
+
+      		</li>
+      	</ul>
+
+      	<div class="total">
+
+      		<!-- Calculate the total price of all chosen services. Format it as currency. -->
+
+      		Total: <span>{{total() | currency}}</span>
+
+      	</div>
+      </form>
+      <h3 @click="toggleBee()" v-bind:class="test">VAMOS COLOCAR UMA CLASSE?</h3>
+    </div>
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.16/vue.js"></script>
+  <script src="scripts/main.js"></script>
+  </body>
+</html>
